@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GeradorDeApostas.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace GeradorDeApostas.Mappings
+namespace GeradorDeApostas.Data.Mappings
 {
     public class ApostasDBContext : DbContext
     {
-        public ApostasDBContext(DbContextOptions<ApostasDBContext> options) : base(options){ }
+        public ApostasDBContext(DbContextOptions<ApostasDBContext> options) : base(options) { }
 
-        //public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> products { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder.ApplyConfiguration(new CategoryMap());
+            builder.ApplyConfiguration(new ProductMap());
         }
     }
 }

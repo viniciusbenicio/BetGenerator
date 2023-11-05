@@ -1,3 +1,4 @@
+using GeradorDeApostas.Mappings;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorDeApostas.Controllers
@@ -19,7 +20,7 @@ namespace GeradorDeApostas.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<WeatherForecast> Get([FromServices] ApostasDBContext context)
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -29,5 +30,7 @@ namespace GeradorDeApostas.Controllers
             })
             .ToArray();
         }
+
+      
     }
 }

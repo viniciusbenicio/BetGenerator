@@ -1,3 +1,6 @@
+using GeradorDeApostas.Data.Mappings;
+using Microsoft.EntityFrameworkCore;
+
 namespace GeradorDeApostas
 {
     public class Program
@@ -12,6 +15,10 @@ namespace GeradorDeApostas
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ApostasDBContext>(options => options.UseSqlServer(connectionString));
+
 
             var app = builder.Build();
 

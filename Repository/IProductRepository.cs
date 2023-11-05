@@ -7,8 +7,8 @@ namespace GeradorDeApostas.Repository
         IEnumerable<Product> GetProducts();
         Product GetProductById(int Id);
         void PostProduct(Product product);
-        void DeleteProduct(int Id);
         void UpdateProduct(Product product);
+        void DeleteProduct(int Id);
         void Save();
     }
 }

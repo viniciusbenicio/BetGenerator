@@ -14,6 +14,21 @@ namespace GeradorDeApostas.Controllers
         {
             _productRepository = productRepository;
         }
+       
+
+        [HttpGet]
+        public IEnumerable<Product> GetProducts()
+        {
+            return _productRepository.GetProducts();
+        }
+        [HttpGet("Id")]
+        public Product GetProductById(int id)
+        {
+            var product = _productRepository.GetProductById(id);
+
+            return product;
+        }
+
 
         [HttpPost]
         public void PostProducts([FromBody] Product product)
@@ -24,11 +39,20 @@ namespace GeradorDeApostas.Controllers
 
         }
 
-        [HttpGet]
-        public IEnumerable<Product> GetProducts()
+        [HttpPut("Id")]
+        public Product PutProduct([FromBody] Product product)
         {
-            return _productRepository.GetProducts();
+            _productRepository.UpdateProduct(product);
+            _productRepository.Save();
+
+            return product;
         }
 
+        [HttpDelete("Id")]
+        public void DeleteProductById(int id)
+        {
+            _productRepository.DeleteProduct(id);
+            _productRepository.Save();  
+        }
     }
 }

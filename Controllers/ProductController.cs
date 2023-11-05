@@ -1,5 +1,6 @@
 ﻿using GeradorDeApostas.Data.Mappings;
 using GeradorDeApostas.Models;
+using GeradorDeApostas.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorDeApostas.Controllers
@@ -8,31 +9,25 @@ namespace GeradorDeApostas.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        public ProductController()
+        private readonly IProductRepository _productRepository;
+        public ProductController(IProductRepository productRepository)
         {
-
+            _productRepository = productRepository;
         }
 
         [HttpPost]
-        public Product PostProducts([FromBody] Product product, [FromServices] ApostasDBContext _context)
+        public void PostProducts([FromBody] Product product)
         {
-            var produto = new Product()
-            {
-                Name = product.Name
-            };
+            _productRepository.PostProduct(product);
 
-            _context.products.Add(produto);
-            _context.SaveChanges();
-
-            return produto;
+            _productRepository.Save();
 
         }
 
         [HttpGet]
-        public Product GetProducts([FromServices] ApostasDBContext context)
+        public IEnumerable<Product> GetProducts()
         {
-            return context.products.FirstOrDefault();
-
+            return _productRepository.GetProducts();
         }
 
     }

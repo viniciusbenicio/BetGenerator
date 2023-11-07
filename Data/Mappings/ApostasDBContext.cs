@@ -8,11 +8,13 @@ namespace GeradorDeApostas.Data.Mappings
         public ApostasDBContext(DbContextOptions<ApostasDBContext> options) : base(options) { }
 
         public DbSet<Product> products { get; set; }
+        public DbSet<Bet> bets { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new ProductMap());
+            builder.ApplyConfiguration(new BetMap());
         }
     }
 }

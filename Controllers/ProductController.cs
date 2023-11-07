@@ -21,6 +21,7 @@ namespace GeradorDeApostas.Controllers
         {
             return _productRepository.GetProducts();
         }
+
         [HttpGet("Id")]
         public Product GetProductById(int id)
         {

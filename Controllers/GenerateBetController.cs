@@ -1,5 +1,5 @@
-﻿using GeradorDeApostas.Data.Mappings;
-using GeradorDeApostas.Models;
+﻿using GeradorDeApostas.Models;
+using GeradorDeApostas.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorDeApostas.Controllers
@@ -8,25 +8,43 @@ namespace GeradorDeApostas.Controllers
     [Route("[controller]")]
     public class GenerateBetController : ControllerBase
     {
-        [HttpGet] 
-        public IActionResult Get([FromBody] Bet bet)
+        private readonly IBetRepository _betRepository;
+        public GenerateBetController(IBetRepository betRepository)
         {
-            return null;
+            _betRepository = betRepository;
+        }
+
+        [HttpGet]
+        public IEnumerable<Bet> GetBets()
+        {
+            var bets = _betRepository.GetBets();
+
+            return bets;
+        }
+
+        [HttpGet("Id")]
+        public Bet GetBetsById(int id)
+        {
+            var bet = _betRepository.GetBetsById(id);
+            
+
+            return bet;
         }
 
         [HttpPost]
-        public void PostBets([FromBody] Bet bet, [FromServices] ApostasDBContext context)
+        public Bet PostBets(int numberGames, int qtGames)
         {
-            bet = new Bet()
+            var bet = new Bet()
             {
-                numberGames = 1,
-                qtGames = 1,
+                numberGames = numberGames,
+                qtGames = qtGames,
                 resultGames = "1,2,3,4,5"
             };
 
+            _betRepository.PostBets(bet);
+            _betRepository.Save();
 
-            context.bets.Add(bet);
-            context.SaveChanges();
+            return bet;
 
         }
     }

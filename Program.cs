@@ -17,6 +17,7 @@ namespace GeradorDeApostas
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IBetRepository, BetRepository>();
 
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

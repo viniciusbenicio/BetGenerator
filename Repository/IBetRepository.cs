@@ -6,9 +6,9 @@ namespace GeradorDeApostas.Repository
     {
 
         IEnumerable<Bet> GetBets();
-        public Bet GetBetsById(int Id);
-        void PostBets(Bet bet);
-        public void Save();
+        Task<Bet> GetBetsByIdAsync(int Id);
+        Task PostBetsAsync(Bet bet);
+        Task SaveAsync();
         Bet GenerateBet(int totalNumber);
     }
 }

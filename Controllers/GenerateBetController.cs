@@ -14,36 +14,34 @@ namespace GeradorDeApostas.Controllers
         }
 
         [HttpGet("v1/bets")]
-        public IEnumerable<Bet> GetBets()
+        public IActionResult GetAsync()
         {
             var bets = _betRepository.GetBets();
 
-            return bets;
+            return Ok(bets);
         }
 
         [HttpGet("v1/bets/{id}")]
-        public Bet GetBetsById([FromRoute] int id)
+        public async Task<IActionResult> GetBetsByIdAsync([FromRoute] int id)
         {
-            var bet = _betRepository.GetBetsById(id);
+            var bet = await _betRepository.GetBetsByIdAsync(id);
 
-
-            return bet;
+            return Ok(bet);
         }
 
         [HttpPost("v1/bets")]
-        public Bet PostBets(int totalNumber)
+        public async Task<IActionResult> PostBetsAsync(int totalNumber)
         {
-
             // Gerar aposta com quantidade de numeros que deseja minimo 6 e máximo 15
             var bet = _betRepository.GenerateBet(totalNumber);
 
             if (!bet.error)
             {
-                _betRepository.PostBets(bet);
-                _betRepository.Save();
+                await _betRepository.PostBetsAsync(bet);
+                await _betRepository.SaveAsync();
             }
 
-            return bet;
+            return Ok(bet);
 
         }
     }

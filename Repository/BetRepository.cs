@@ -1,5 +1,6 @@
 ﻿using GeradorDeApostas.Data.Mappings;
 using GeradorDeApostas.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeradorDeApostas.Repository
 {
@@ -11,23 +12,23 @@ namespace GeradorDeApostas.Repository
             _context = context;
         }
 
-        public IEnumerable<Bet> GetBets()
+        public  IEnumerable<Bet> GetBets()
         {
-            return _context.bets.ToList();
+            return  _context.bets.ToList();
         }
 
-        public Bet GetBetsById(int Id)
+        public async Task<Bet> GetBetsByIdAsync(int Id)
         {
-            return _context.bets.Find(Id);
+            return await _context.bets.FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public void PostBets(Bet bet)
+        public async Task PostBetsAsync(Bet bet)
         {
-            _context.bets.Add(bet);
+            await _context.bets.AddAsync(bet);
         }
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public Bet GenerateBet(int totalNumber)
@@ -41,10 +42,10 @@ namespace GeradorDeApostas.Repository
                 qtGames = totalNumber
             };
 
-            if(totalNumber < 6 || totalNumber > 15)
+            if (totalNumber < 6 || totalNumber > 15)
             {
-                 bet.error = true;
-                 bet.resultGames = $"A quantidade de numeros para gerar a aposta é menor que 6 ou maior que 15, valor informado :{totalNumber}";
+                bet.error = true;
+                bet.resultGames = $"A quantidade de numeros para gerar a aposta é menor que 6 ou maior que 15, valor informado :{totalNumber}";
             }
             else
             {

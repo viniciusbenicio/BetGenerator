@@ -16,26 +16,30 @@ namespace GeradorDeApostas.Controllers
 
 
         [HttpGet("v1/products")]
-        public IEnumerable<Product> GetProducts()
+        public IActionResult GetProducts()
         {
-            return _productRepository.GetProducts();
+            var products = _productRepository.GetProducts();
+
+            return Ok(products);
         }
 
         [HttpGet("v1/products/{id}")]
-        public Product GetProductById(int id)
+        public async Task<IActionResult> GetProductByIdAsync(int id)
         {
-            var product = _productRepository.GetProductById(id);
+            var product = await _productRepository.GetProductByIdAsync(id);
 
-            return product;
+            return Ok(product);
         }
 
 
         [HttpPost("v1/products")]
-        public void PostProducts([FromBody] Product product)
+        public async Task<IActionResult> PostProductsAsync([FromBody] Product product)
         {
-            _productRepository.PostProduct(product);
+            await _productRepository.PostProductAsync(product);
 
-            _productRepository.Save();
+            await _productRepository.SaveAsync();
+
+            return Ok(product);
 
         }
 
@@ -43,7 +47,7 @@ namespace GeradorDeApostas.Controllers
         public Product PutProduct([FromBody] Product product)
         {
             _productRepository.UpdateProduct(product);
-            _productRepository.Save();
+            _productRepository.SaveAsync();
 
             return product;
         }
@@ -52,7 +56,7 @@ namespace GeradorDeApostas.Controllers
         public void DeleteProductById(int id)
         {
             _productRepository.DeleteProduct(id);
-            _productRepository.Save();  
+            _productRepository.SaveAsync();
         }
     }
 }

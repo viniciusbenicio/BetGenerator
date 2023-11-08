@@ -18,16 +18,15 @@ namespace GeradorDeApostas.Repository
             return _context.products.ToList();
         }
 
-        public Product GetProductById(int Id)
+        public async Task<Product> GetProductByIdAsync(int Id)
         {
-            return _context.products.Find(Id);
+            return await _context.products.FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public void PostProduct(Product product)
+        public async Task PostProductAsync(Product product)
         {
-            _context.products.Add(product);
+            await _context.products.AddAsync(product);
         }
-
         public void DeleteProduct(int Id)
         {
             var produto = _context.products.Find(Id);
@@ -44,11 +43,9 @@ namespace GeradorDeApostas.Repository
             _context.products.Entry(product).State = EntityState.Modified;
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
-
-       
     }
 }

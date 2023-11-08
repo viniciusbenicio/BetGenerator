@@ -36,6 +36,11 @@ namespace GeradorDeApostas.Data.Mappings
              .HasColumnType("NVARCHAR")
              .HasMaxLength(100);
 
+            builder.Property(x => x.error)
+                .IsRequired()
+                .HasColumnName("error")
+                .HasColumnType("bit");
+
         }
 
     }

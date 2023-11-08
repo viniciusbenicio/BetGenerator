@@ -26,23 +26,23 @@ namespace GeradorDeApostas.Controllers
         public Bet GetBetsById(int id)
         {
             var bet = _betRepository.GetBetsById(id);
-            
+
 
             return bet;
         }
 
         [HttpPost]
-        public Bet PostBets(int numberGames, int qtGames)
+        public Bet PostBets(int totalNumber)
         {
-            var bet = new Bet()
-            {
-                numberGames = numberGames,
-                qtGames = qtGames,
-                resultGames = "1,2,3,4,5"
-            };
 
-            _betRepository.PostBets(bet);
-            _betRepository.Save();
+            // Gerar aposta com quantidade de numeros que deseja minimo 6 e máximo 15
+            var bet = _betRepository.GenerateBet(totalNumber);
+
+            if (!bet.error)
+            {
+                _betRepository.PostBets(bet);
+                _betRepository.Save();
+            }
 
             return bet;
 

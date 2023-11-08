@@ -29,5 +29,37 @@ namespace GeradorDeApostas.Repository
         {
             _context.SaveChanges();
         }
+
+        public Bet GenerateBet(int totalNumber)
+        {
+            Random random = new Random();
+            int[] numerosAleatorios = new int[15];
+
+            Bet bet = new Bet()
+            {
+                numberGames = 1,
+                qtGames = totalNumber
+            };
+
+            if(totalNumber < 6 || totalNumber > 15)
+            {
+                 bet.error = true;
+                 bet.resultGames = $"A quantidade de numeros para gerar a aposta é menor que 6 ou maior que 15, valor informado :{totalNumber}";
+            }
+            else
+            {
+                for (int i = 0; i < totalNumber; i++)
+                    numerosAleatorios[i] = random.Next(1, 61);
+
+                foreach (int j in numerosAleatorios)
+                    if (j != 0)
+                        bet.resultGames += $"{j};";
+                    else
+                        continue;
+            }
+
+            return bet;
+
+        }
     }
 }

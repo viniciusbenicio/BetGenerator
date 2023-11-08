@@ -9,5 +9,6 @@ namespace GeradorDeApostas.Repository
         public Bet GetBetsById(int Id);
         void PostBets(Bet bet);
         public void Save();
+        Bet GenerateBet(int totalNumber);
     }
 }

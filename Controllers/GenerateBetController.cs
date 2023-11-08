@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace GeradorDeApostas.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class GenerateBetController : ControllerBase
     {
         private readonly IBetRepository _betRepository;
@@ -14,7 +13,7 @@ namespace GeradorDeApostas.Controllers
             _betRepository = betRepository;
         }
 
-        [HttpGet]
+        [HttpGet("v1/bets")]
         public IEnumerable<Bet> GetBets()
         {
             var bets = _betRepository.GetBets();
@@ -22,8 +21,8 @@ namespace GeradorDeApostas.Controllers
             return bets;
         }
 
-        [HttpGet("Id")]
-        public Bet GetBetsById(int id)
+        [HttpGet("v1/bets/{id}")]
+        public Bet GetBetsById([FromRoute] int id)
         {
             var bet = _betRepository.GetBetsById(id);
 
@@ -31,7 +30,7 @@ namespace GeradorDeApostas.Controllers
             return bet;
         }
 
-        [HttpPost]
+        [HttpPost("v1/bets")]
         public Bet PostBets(int totalNumber)
         {
 

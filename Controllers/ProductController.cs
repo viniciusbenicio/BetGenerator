@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace GeradorDeApostas.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
@@ -14,15 +13,15 @@ namespace GeradorDeApostas.Controllers
         {
             _productRepository = productRepository;
         }
-       
 
-        [HttpGet]
+
+        [HttpGet("v1/products")]
         public IEnumerable<Product> GetProducts()
         {
             return _productRepository.GetProducts();
         }
 
-        [HttpGet("Id")]
+        [HttpGet("v1/products/{id}")]
         public Product GetProductById(int id)
         {
             var product = _productRepository.GetProductById(id);
@@ -31,7 +30,7 @@ namespace GeradorDeApostas.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("v1/products")]
         public void PostProducts([FromBody] Product product)
         {
             _productRepository.PostProduct(product);
@@ -40,7 +39,7 @@ namespace GeradorDeApostas.Controllers
 
         }
 
-        [HttpPut("Id")]
+        [HttpPut("v1/products/{id}")]
         public Product PutProduct([FromBody] Product product)
         {
             _productRepository.UpdateProduct(product);
@@ -49,7 +48,7 @@ namespace GeradorDeApostas.Controllers
             return product;
         }
 
-        [HttpDelete("Id")]
+        [HttpDelete("v1/products/{id}")]
         public void DeleteProductById(int id)
         {
             _productRepository.DeleteProduct(id);

@@ -38,8 +38,8 @@ namespace GeradorDeApostas.Repository
 
             Bet bet = new Bet()
             {
-                numberGames = 1,
-                qtGames = totalNumber
+                NumberOfGames = 1,
+                TotalNumbers = totalNumber
             };
 
             if (totalNumber < 6 || totalNumber > 15)

@@ -20,14 +20,14 @@ namespace GeradorDeApostas.Data.Mappings
                    .UseIdentityColumn();
 
             //Propriedades
-            builder.Property(x => x.qtGames)
+            builder.Property(x => x.TotalNumbers)
                    .IsRequired()
-                   .HasColumnName("qtGames")
+                   .HasColumnName("TotalNumbers")
                    .HasColumnType("INTEGER");
 
-            builder.Property(x => x.numberGames)
+            builder.Property(x => x.NumberOfGames)
                   .IsRequired()
-                  .HasColumnName("numberGames")
+                  .HasColumnName("NumberOfGames")
                   .HasColumnType("INTEGER");
 
             builder.Property(x => x.resultGames)

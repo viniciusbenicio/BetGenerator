@@ -12,9 +12,9 @@ namespace GeradorDeApostas.Repository
             _context = context;
         }
 
-        public  IEnumerable<Bet> GetBets()
+        public IEnumerable<Bet> GetBets()
         {
-            return  _context.bets.ToList();
+            return _context.bets.ToList();
         }
 
         public async Task<Bet> GetBetsByIdAsync(int Id)
@@ -31,37 +31,51 @@ namespace GeradorDeApostas.Repository
             await _context.SaveChangesAsync();
         }
 
-        public Bet GenerateBet(int totalNumber)
+        public async Task<Bet> GenerateBetAsync(int totalNumber, int? numberOfGames)
         {
             Random random = new Random();
-            int[] numerosAleatorios = new int[15];
-
             Bet bet = new Bet()
             {
-                NumberOfGames = 1,
-                TotalNumbers = totalNumber
+                TotalNumbers = totalNumber,
+                NumberOfGames = numberOfGames ?? 1
             };
+            int[] numerosAleatorios = new int[15];
+            string result = "";
 
             if (totalNumber < 6 || totalNumber > 15)
-            {
                 bet.Error = true;
-                //bet.resultGames = $"A quantidade de numeros para gerar a aposta é menor que 6 ou maior que 15, valor informado :{totalNumber}";
-            }
             else
             {
-                for (int i = 0; i < totalNumber; i++)
-                    numerosAleatorios[i] = random.Next(1, 61);
+                for (int n = 0; n < numberOfGames; n++)
+                {
+                    for (int i = 0; i <= totalNumber; i++)
+                        numerosAleatorios[i] = random.Next(1, 61);
 
-                foreach (int j in numerosAleatorios)
-                    if (j != 0)
-                        bet.Error = true;
-                    //bet.resultGames += $"{j};";
-                    else
-                        continue;
+                    foreach (int j in numerosAleatorios)
+                    {
+                        if (j != 0)
+                        {
+                            bet.Error = false;
+                            result += $"{j};";
+                            if (bet.BetResults == null)
+                            {
+                                bet.BetResults = new List<BetResult>();
+                            }
+                        }
+                        else
+                            continue;
+                    }
+
+                    bet.BetResults.Add(new BetResult { Result = result });
+                    await this.PostBetsAsync(bet);
+                    result = "";
+
+                }
             }
 
-            return bet;
+            await this.SaveAsync();
 
+            return bet;
         }
     }
 }

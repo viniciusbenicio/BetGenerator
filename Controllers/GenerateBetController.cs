@@ -30,18 +30,16 @@ namespace GeradorDeApostas.Controllers
         }
 
         [HttpPost("v1/bets")]
-        public async Task<IActionResult> PostBetsAsync(int totalNumber)
+        public async Task<IActionResult> PostBetsAsync(int totalNumber, int? numberOfGames)
         {
             // Gerar aposta com quantidade de numeros que deseja minimo 6 e máximo 15
-            var bet = _betRepository.GenerateBet(totalNumber);
+            var bet = await _betRepository.GenerateBetAsync(totalNumber, numberOfGames);
 
-            if (!bet.Error)
-            {
-                await _betRepository.PostBetsAsync(bet);
-                await _betRepository.SaveAsync();
-            }
+            if(bet != null) 
+                return Ok(bet);
+            else 
+                return BadRequest();
 
-            return Ok(bet);
 
         }
     }

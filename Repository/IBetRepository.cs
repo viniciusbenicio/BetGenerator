@@ -9,6 +9,6 @@ namespace GeradorDeApostas.Repository
         Task<Bet> GetBetsByIdAsync(int Id);
         Task PostBetsAsync(Bet bet);
         Task SaveAsync();
-        Bet GenerateBet(int totalNumber);
+        Task<Bet> GenerateBetAsync(int totalNumber, int? numberOfGames);
     }
 }

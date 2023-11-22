@@ -30,15 +30,9 @@ namespace GeradorDeApostas.Data.Mappings
                   .HasColumnName("NumberOfGames")
                   .HasColumnType("INTEGER");
 
-            builder.Property(x => x.resultGames)
-             .IsRequired()
-             .HasColumnName("resultGames")
-             .HasColumnType("NVARCHAR")
-             .HasMaxLength(100);
-
-            builder.Property(x => x.error)
+            builder.Property(x => x.Error)
                 .IsRequired()
-                .HasColumnName("error")
+                .HasColumnName("Error")
                 .HasColumnType("bit");
 
         }

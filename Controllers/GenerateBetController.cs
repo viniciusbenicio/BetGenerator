@@ -35,7 +35,7 @@ namespace GeradorDeApostas.Controllers
             // Gerar aposta com quantidade de numeros que deseja minimo 6 e máximo 15
             var bet = _betRepository.GenerateBet(totalNumber);
 
-            if (!bet.error)
+            if (!bet.Error)
             {
                 await _betRepository.PostBetsAsync(bet);
                 await _betRepository.SaveAsync();

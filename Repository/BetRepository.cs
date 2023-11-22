@@ -44,8 +44,8 @@ namespace GeradorDeApostas.Repository
 
             if (totalNumber < 6 || totalNumber > 15)
             {
-                bet.error = true;
-                bet.resultGames = $"A quantidade de numeros para gerar a aposta é menor que 6 ou maior que 15, valor informado :{totalNumber}";
+                bet.Error = true;
+                //bet.resultGames = $"A quantidade de numeros para gerar a aposta é menor que 6 ou maior que 15, valor informado :{totalNumber}";
             }
             else
             {
@@ -54,7 +54,8 @@ namespace GeradorDeApostas.Repository
 
                 foreach (int j in numerosAleatorios)
                     if (j != 0)
-                        bet.resultGames += $"{j};";
+                        bet.Error = true;
+                    //bet.resultGames += $"{j};";
                     else
                         continue;
             }

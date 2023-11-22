@@ -44,7 +44,8 @@ namespace GeradorDeApostas.Repository
 
             if (totalNumber < 6 || totalNumber > 15)
                 bet.Error = true;
-            else
+
+            if (numberOfGames >= 1 && numberOfGames <= 15)
             {
                 for (int n = 0; n < numberOfGames; n++)
                 {
@@ -66,11 +67,15 @@ namespace GeradorDeApostas.Repository
                             continue;
                     }
 
-                    bet.BetResults.Add(new BetResult { Result = result });
+                    bet.BetResults.Add(new BetResult {Result = result});
                     await this.PostBetsAsync(bet);
                     result = "";
 
                 }
+            }
+            else
+            {
+                bet.Error = true;
             }
 
             await this.SaveAsync();

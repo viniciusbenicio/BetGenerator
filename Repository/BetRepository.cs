@@ -39,8 +39,6 @@ namespace GeradorDeApostas.Repository
                 TotalNumbers = totalNumber,
                 NumberOfGames = numberOfGames ?? 1
             };
-            int[] numerosAleatorios = new int[15];
-            string result = "";
 
             if (totalNumber < 6 || totalNumber > 15)
                 bet.Error = true;
@@ -49,28 +47,32 @@ namespace GeradorDeApostas.Repository
             {
                 for (int n = 0; n < numberOfGames; n++)
                 {
-                    for (int i = 0; i <= totalNumber; i++)
-                        numerosAleatorios[i] = random.Next(1, 61);
+                    int[] numerosAleatorios = new int[totalNumber];
+                    string result = "";
+
+                    for (int i = 0; i < totalNumber; i++)
+                    {
+                        int numeroAleatorio;
+                        do
+                        {
+                            numeroAleatorio = random.Next(1, 61);
+                        } while (numerosAleatorios.Contains(numeroAleatorio));
+
+                        numerosAleatorios[i] = numeroAleatorio;
+                    }
 
                     foreach (int j in numerosAleatorios)
                     {
-                        if (j != 0)
+                        result += $"{j};";
+
+                        if (bet.BetResults == null)
                         {
-                            bet.Error = false;
-                            result += $"{j};";
-                            if (bet.BetResults == null)
-                            {
-                                bet.BetResults = new List<BetResult>();
-                            }
+                            bet.BetResults = new List<BetResult>();
                         }
-                        else
-                            continue;
                     }
 
-                    bet.BetResults.Add(new BetResult {Result = result});
+                    bet.BetResults.Add(new BetResult { Result = result });
                     await this.PostBetsAsync(bet);
-                    result = "";
-
                 }
             }
             else

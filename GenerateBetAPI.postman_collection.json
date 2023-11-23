@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "40e5f6af-9903-409f-8381-9dcab5241529",
+		"name": "GenerateBetAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18529058"
+	},
+	"item": [
+		{
+			"name": "Retornar todas as Apostas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7100/v1/bets",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7100",
+					"path": [
+						"v1",
+						"bets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retornar aposta pelo ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7100/v1/bets?id=40",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7100",
+					"path": [
+						"v1",
+						"bets"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "40"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar numero para Aposta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7100/v1/bets?totalNumber=6&numberOfGames=10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7100",
+					"path": [
+						"v1",
+						"bets"
+					],
+					"query": [
+						{
+							"key": "totalNumber",
+							"value": "6"
+						},
+						{
+							"key": "numberOfGames",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

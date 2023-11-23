@@ -14,12 +14,12 @@ namespace GeradorDeApostas.Repository
 
         public IEnumerable<Bet> GetBets()
         {
-            return _context.bets.ToList();
+            return _context.bets.Include(x => x.BetResults).ToList();
         }
 
         public async Task<Bet> GetBetsByIdAsync(int Id)
         {
-            return await _context.bets.FirstOrDefaultAsync(x => x.Id == Id);
+            return await _context.bets.Include(x => x.BetResults).FirstOrDefaultAsync(x => x.Id == Id);
         }
 
         public async Task PostBetsAsync(Bet bet)

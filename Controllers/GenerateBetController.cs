@@ -13,6 +13,10 @@ namespace GeradorDeApostas.Controllers
             _betRepository = betRepository;
         }
 
+        /// <summary>
+        /// Listar todas apostas criadas na API.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("v1/bets")]
         public IActionResult GetAsync()
         {
@@ -21,6 +25,11 @@ namespace GeradorDeApostas.Controllers
             return Ok(bets);
         }
 
+        /// <summary>
+        /// Listar aposta pelo ID na API.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("v1/bets/{id}")]
         public async Task<IActionResult> GetBetsByIdAsync([FromRoute] int id)
         {
@@ -29,6 +38,12 @@ namespace GeradorDeApostas.Controllers
             return Ok(bet);
         }
 
+        /// <summary>
+        /// Criar aposta na API.
+        /// </summary>
+        /// <param name="totalNumber"></param>
+        /// <param name="numberOfGames"></param>
+        /// <returns></returns>
         [HttpPost("v1/bets")]
         public async Task<IActionResult> PostBetsAsync(int totalNumber, int? numberOfGames)
         {

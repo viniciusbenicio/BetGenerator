@@ -23,6 +23,9 @@ namespace GeradorDeApostas
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<ApostasDBContext>(options => options.UseSqlServer(connectionString));
 
+            builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+             );
 
             var app = builder.Build();
 

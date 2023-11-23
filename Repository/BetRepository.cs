@@ -45,7 +45,7 @@ namespace GeradorDeApostas.Repository
             if (totalNumber < 6 || totalNumber > 15)
                 bet.Error = true;
 
-            if (numberOfGames >= 1 && numberOfGames <= 15)
+            if (numberOfGames >= 1 && numberOfGames <= 10)
             {
                 for (int n = 0; n < numberOfGames; n++)
                 {

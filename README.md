@@ -1,7 +1,7 @@
-# Gerador de Aposta API
+# BetGenerator API
 
 
-O **Gerador de Aposta API** é uma Web API criada em C# utilizando .NET 6, focada em gerar números aleatorios para uma aposta da "MEGA SENA".
+O **BetGenerator API** é uma Web API criada em C# utilizando .NET 6, focada em gerar números aleatorios para uma aposta da "MEGA SENA".
 Ela permite que você realize uma geração de números aleatorios e quantidade de jogos igual uma aposta real, sendo minimo de 6 números e máximo de 15 números e também podendo gerar 1 jogo e o máximo 10 igual quando você deseja preencher as cartelas da MEGA SENA. 
 
 

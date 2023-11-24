@@ -4,10 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GeradorDeApostas.Controllers
 {
+    /// <summary>
+    /// Controller para Gerar Aposta.
+    /// </summary>
     [ApiController]
     public class GenerateBetController : ControllerBase
     {
         private readonly IBetRepository _betRepository;
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="betRepository"></param>
         public GenerateBetController(IBetRepository betRepository)
         {
             _betRepository = betRepository;

@@ -80,7 +80,7 @@ namespace GeradorDeApostas.Repository
                 bet.Error = true;
             }
 
-            await this.SaveAsync();
+            //await this.SaveAsync();
 
             return bet;
         }
